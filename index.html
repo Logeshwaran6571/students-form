@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Form</title>
+    <style>
+         
+        #table
+        {
+            padding: 5px;
+            box-shadow: 0 0 50px black;
+
+        }
+
+        #course
+        {
+            width: 100%;
+        }
+
+        #save 
+        {
+            width: 100%;
+            background-color: aqua;
+            color: black;
+        }
+
+        .label 
+        {
+            font-weight: bolder;
+            padding: 2px;
+        }
+
+        .table
+         {
+            border-collapse: collapse;
+            display: none;
+            border: none;
+            position: absolute;
+            right: 35%;
+            box-shadow: 0 0 50px  rgb(108, 208, 248);
+
+        }
+
+        .table th, .table td 
+        {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        button
+        {
+            background-color: red;
+            color: white;
+        }
+
+        .container
+        {
+            width: 600px;
+        }
+
+        input:focus
+        {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <center>    
+     <marquee  direction="right" style="background-color: chartreuse; ">
+        <h1 style="  color: red; " >STUDENTS FORM</h1>
+    </marquee>
+    <br><br><br>
+        <table border="1" id="table">
+            <tbody>
+                <tr>
+                    <td><label class="label">Name:</label></td>
+                    <td><input type="text" id="name" placeholder="Enter name"></td>
+                </tr>
+                <tr>
+                    <td><label class="label">Age:</label></td>
+                    <td><input type="number" id="age" placeholder="Enter age"></td>
+                </tr>
+                <tr>
+                    <td><label class="label">Gender:</label></td>
+                    <td>
+                        <input type="radio" name="gender" id="male" value="Male">
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female" value="Female">
+                        <label for="female">Female</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="label">Course:</label></td>
+                    <td>
+                        <select id="course">
+                            <option value="Python">Python</option>
+                            <option value="Java">Java</option>
+                            <option value="PHP">PHP</option>
+                            <option value="C++">C++</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="label">E-mail:</label></td>
+                    <td><input type="email" id="email" placeholder="Enter e-mail"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button id="save" onclick="add()">Save</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br><br><br><br>
+                <table border="1" class="table">
+                    <thead>
+                        <tr>
+                            <th class="table2">NAME</th>
+                            <th class="table2">AGE</th>
+                            <th class="table2">GENDER</th>
+                            <th class="table2">COURSE</th>
+                            <th class="table2">EMAIL</th>
+                            <th class="table2">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody"></tbody>
+                </table>
+    </center>
+
+    <script>
+        function add() {
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+            var gender = document.querySelector('input[name="gender"]:checked');
+            var course = document.getElementById("course").value;
+            var email = document.getElementById("email").value;
+
+            if (!name || !age || !gender || !course || !email) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            var studentsTableBody = document.getElementById("studentsTableBody");
+            var newRow = studentsTableBody.insertRow();
+
+            newRow.insertCell().textContent = name;
+            newRow.insertCell().textContent = age;
+            newRow.insertCell().textContent = gender.value;
+            newRow.insertCell().textContent = course;
+            newRow.insertCell().textContent = email;
+            newRow.insertCell().innerHTML = '<button onclick="deleteRow(event)">Delete</button>';
+            var table2=document.querySelector(".table");
+            table2.style.display="block";
+
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.querySelector('input[name="gender"]:checked').checked = false; 
+            document.getElementById("course").value ="Python"; 
+            document.getElementById("email").value = "";
+
+        }
+
+        function deleteRow(event) {
+             
+            event.target.parentNode.parentNode.remove();
+
+            var tableall=document.querySelectorAll(".table tbody tr") ;   
+            if(tableall.length==0)
+             var table2=document.querySelector(".table");
+             table2.style.display="none";
+        }
+    </script>
+</body>
+</html>
